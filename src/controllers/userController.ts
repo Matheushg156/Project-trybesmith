@@ -40,7 +40,7 @@ const validatePassword = (req: Request, res: Response, next: NextFunction) => {
 const create = async (req: Request, res: Response) => {
   const user = await UserService.create(req.body);
   if (user) {
-    return res.status(201).json(user);
+    return res.status(201).json({ token: user });
   }
   return res.status(500).json({ error: 'Internal server error' });
 };

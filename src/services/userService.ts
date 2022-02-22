@@ -30,7 +30,7 @@ const validateClasse = (classe: string): Error | false => {
 };
 
 const validateLevel = (level: number): Error | false => {
-  if (!level) {
+  if (!level && level !== 0) {
     return { code: 400, error: 'Level is required' };
   }
   if (typeof level !== 'number') {
