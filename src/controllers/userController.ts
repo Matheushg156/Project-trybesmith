@@ -19,7 +19,17 @@ const validateClasse = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const validateLevel = (req: Request, res: Response, next: NextFunction) => {
+  const { level } = req.body;
+  const invalidLevel = UserService.validateLevel(level);
+  if (invalidLevel) {
+    res.status(invalidLevel.code).json({ error: invalidLevel.error });
+  }
+  next();
+};
+
 export default {
   validateUserName,
   validateClasse,
+  validateLevel,
 };
