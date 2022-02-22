@@ -37,9 +37,18 @@ const validatePassword = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const create = async (req: Request, res: Response) => {
+  const user = await UserService.create(req.body);
+  if (user) {
+    res.status(201).json(user);
+  }
+  return res.status(500).json({ error: 'Internal server error' });
+};
+
 export default {
   validateUserName,
   validateClasse,
   validateLevel,
   validatePassword,
+  create,
 };
