@@ -1,4 +1,7 @@
 import { Error } from '../interfaces/ErrorsInterface';
+import { User } from '../interfaces/UsersInterface';
+import UserModel from '../models/userModel';
+import createToken from '../helpers/createToken';
 
 const validateUserName = (userName: string): Error | false => {
   if (!userName) {
@@ -52,9 +55,17 @@ const validatePassword = (password: string): Error | false => {
   return false;
 };
 
+const create = async (user: User): Promise<string | undefined> => {
+  const createUser = await UserModel.create(user);
+  if (createUser) {
+    return createToken({ id: createUser.id, userName: createUser.username });
+  }
+};
+
 export default {
   validateUserName,
   validateClasse,
   validateLevel,
   validatePassword,
+  create,
 };
