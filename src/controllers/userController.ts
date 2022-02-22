@@ -28,8 +28,18 @@ const validateLevel = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const validatePassword = (req: Request, res: Response, next: NextFunction) => {
+  const { password } = req.body;
+  const invalidPassword = UserService.validatePassword(password);
+  if (invalidPassword) {
+    res.status(invalidPassword.code).json({ error: invalidPassword.error });
+  }
+  next();
+};
+
 export default {
   validateUserName,
   validateClasse,
   validateLevel,
+  validatePassword,
 };
