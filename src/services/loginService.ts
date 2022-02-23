@@ -8,7 +8,7 @@ const loginUser = async (login: Login): Promise<string | Error> => {
   if (user) {
     return createToken({ id: user.id, userName: user.username });
   }
-  return { code: 401, error: 'Invalid username or password' };
+  return { code: 401, error: 'Username or password invalid' };
 };
 
 export default {
