@@ -33,7 +33,21 @@ const getUser = async (username: string, password: string): Promise<UserWithId |
   return user;
 };
 
+const getUserById = async (id: number): Promise<UserWithId | undefined> => {
+  const query = `
+    SELECT * FROM Trybesmith.Users
+    WHERE id = ?
+  `;
+  const [data] = await connection.execute(
+    query,
+    [id],
+  );
+  const [user] = data as UserWithId[];
+  return user;
+};
+
 export default {
   create,
   getUser,
+  getUserById,
 };
