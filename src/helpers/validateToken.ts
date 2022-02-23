@@ -5,7 +5,7 @@ import UserModel from '../models/userModel';
 
 const mySecret = 'mySecret';
 
-const checkToken = async (req: ReqUser, res: Response, next: NextFunction) => {
+const validateToken = async (req: ReqUser, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ error: 'Token not found' });
@@ -21,8 +21,8 @@ const checkToken = async (req: ReqUser, res: Response, next: NextFunction) => {
     req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ error: 'Expired or invalid token' });
+    return res.status(401).json({ error: 'Invalid token' });
   }
 };
 
-export default checkToken;
+export default validateToken;
