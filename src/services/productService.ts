@@ -1,5 +1,7 @@
 import { Error } from '../interfaces/ErrorsInterface';
+import { Product } from '../interfaces/ProductInterface';
 import ProductModel from '../models/productModel';
+import createToken from '../helpers/createToken';
 
 const validateName = (name: string): Error | false => {
   if (!name) {
@@ -27,7 +29,15 @@ const validateAmount = (amount: string): Error | false => {
   return false;
 };
 
+const create = async (product: Product): Promise<string | undefined> => {
+  const createProduct = await ProductModel.create(product);
+  if (createProduct) {
+    return createToken({ id: createProduct.id, userName: createProduct.name });
+  }
+};
+
 export default {
   validateName,
   validateAmount,
+  create,
 };
