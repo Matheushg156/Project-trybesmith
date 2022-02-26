@@ -19,7 +19,16 @@ const validateAmount = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const create = async (req: Request, res: Response) => {
+  const product = await ProductService.create(req.body);
+  if (product) {
+    return res.status(201).json({ item: product });
+  }
+  return res.status(500).json({ error: 'Internal server error' });
+};
+
 export default {
   validateName,
   validateAmount,
+  create,
 };
