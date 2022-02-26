@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
 import { verify, JwtPayload } from 'jsonwebtoken';
 import UserModel from '../models/userModel';
 
-const mySecret = 'mySecret';
+dotenv.config();
+
+const mySecret = process.env.JWT_SECRET || 'mySecret';
 
 const validateToken = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
