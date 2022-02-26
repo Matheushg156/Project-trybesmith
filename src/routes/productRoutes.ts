@@ -1,7 +1,7 @@
 import express from 'express';
 
-import ProductController from '../controllers/productController';
 import validateToken from '../helpers/validateToken';
+import ProductController from '../controllers/productController';
 
 const productRouter = express.Router();
 

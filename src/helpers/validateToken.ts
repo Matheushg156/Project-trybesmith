@@ -1,26 +1,22 @@
-import { Response, NextFunction } from 'express';
-import { JwtPayload, verify } from 'jsonwebtoken';
-import { ReqUser } from '../interfaces/reqUserInterface';
+import { Request, Response, NextFunction } from 'express';
+import { verify, JwtPayload } from 'jsonwebtoken';
 import UserModel from '../models/userModel';
 
 const mySecret = 'mySecret';
 
-const validateToken = async (req: ReqUser, res: Response, next: NextFunction) => {
+const validateToken = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
-  if (!token) {
-    return res.status(401).json({ error: 'Token not found' });
-  }
+  if (!token) return res.status(401).json({ error: 'Token not found' });
+
   try {
-    const decoded = verify(token, mySecret);
-    const user = await UserModel.getUserById((decoded as JwtPayload).id);
+    const jwtPayload: JwtPayload = verify(token, mySecret) as JwtPayload;
+    const user = await UserModel.getUserById(jwtPayload.id);
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: 'Erro ao procurar usuário do token.' });
+      return res.status(401).json({ error: 'User not found' });
     }
     req.user = user;
     next();
-  } catch (err) {
+  } catch (error) {
     return res.status(401).json({ error: 'Invalid token' });
   }
 };
