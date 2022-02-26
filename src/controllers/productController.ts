@@ -10,6 +10,16 @@ const validateName = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const validateAmount = (req: Request, res: Response, next: NextFunction) => {
+  const { amount } = req.body;
+  const invalidAmount = ProductService.validateAmount(amount);
+  if (invalidAmount) {
+    return res.status(invalidAmount.code).json({ error: invalidAmount.error });
+  }
+  next();
+};
+
 export default {
   validateName,
+  validateAmount,
 };
