@@ -12,5 +12,6 @@ productRouter.post(
   ProductController.validateAmount,
   ProductController.create,
 );
+productRouter.get('/', validateToken, ProductController.getAll);
 
 export default productRouter;
