@@ -35,8 +35,16 @@ const create = async (product: Product): Promise<ProductWithId | undefined> => {
   }
 };
 
+const getAll = async (): Promise<ProductWithId[] | undefined> => {
+  const getAllProducts = await ProductModel.getAll();
+  if (getAllProducts) {
+    return getAllProducts;
+  }
+};
+
 export default {
   validateName,
   validateAmount,
   create,
+  getAll,
 };
