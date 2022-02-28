@@ -27,8 +27,17 @@ const create = async (req: Request, res: Response) => {
   return res.status(500).json({ error: 'Internal server error' });
 };
 
+const getAll = async (req: Request, res: Response) => {
+  const products = await ProductService.getAll();
+  if (products) {
+    return res.status(200).json(products);
+  }
+  return res.status(500).json({ error: 'Internal server error' });
+};
+
 export default {
   validateName,
   validateAmount,
   create,
+  getAll,
 };
