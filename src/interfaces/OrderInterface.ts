@@ -1,5 +1,5 @@
 export interface Order {
-  product: number[],
+  products: number[],
 }
 
 export interface OrderWithId extends Order {

@@ -3,8 +3,7 @@ import OrderService from '../services/orderService';
 import OrderModel from '../models/orderModel';
 
 const validateOrder = (req: Request, res: Response, next: NextFunction) => {
-  const { order } = req.body;
-  const invalidOrder = OrderService.validateOrder(order);
+  const invalidOrder = OrderService.validateOrder(req.body);
   if (invalidOrder) {
     return res.status(invalidOrder.code).json({ error: invalidOrder.error });
   }
@@ -12,8 +11,8 @@ const validateOrder = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  const { dataValues: { id: userId } } = req.user;
-  const order = await OrderModel.create(req.body, userId);
+  const { id } = req.user;  
+  const order = await OrderModel.create(req.body, id);
   if (order) {
     return res.status(201).json({ order });
   }
