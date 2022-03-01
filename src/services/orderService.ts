@@ -15,11 +15,8 @@ const validateOrder = (order: Order): Error | false => {
   return false;
 };
 
-const getById = async (id: string): Promise<OrderWithId | Error> => {
+const getById = async (id: string): Promise<OrderWithId> => {
   const result = await OrderModel.getById(id);
-  if (!result) {
-    return { code: 404, error: 'Order not found' };
-  }
   return result;
 };
 
