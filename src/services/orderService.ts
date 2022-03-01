@@ -1,6 +1,5 @@
 import { Error } from '../interfaces/ErrorsInterface';
-import { Order, OrderWithId } from '../interfaces/OrderInterface';
-import OrderModel from '../models/orderModel';
+import { Order } from '../interfaces/OrderInterface';
 
 const validateOrder = (order: Order): Error | false => {
   if (!order) {
