@@ -1,6 +1,7 @@
 import { Error } from '../interfaces/ErrorsInterface';
-import { Order, OrderWithId } from '../interfaces/OrderInterface';
+import { Order, ProductOrder, OrderWithId } from '../interfaces/OrderInterface';
 import OrderModel from '../models/orderModel';
+import OrderHelpers from '../helpers/orderHelpers';
 
 const validateOrder = (order: Order): Error | false => {
   if (!order.products) {
@@ -15,9 +16,13 @@ const validateOrder = (order: Order): Error | false => {
   return false;
 };
 
-const getById = async (id: string): Promise<OrderWithId> => {
-  const result = await OrderModel.getById(id);
-  return result;
+const getById = async (id: number): Promise<OrderWithId | false> => {
+  const result = await OrderModel.getById(id) as ProductOrder[];
+  if (!result.length) {
+    return false;
+  }
+  const order = OrderHelpers.ordersReturn(result, id);
+  return order;
 };
 
 export default {

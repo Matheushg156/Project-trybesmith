@@ -21,11 +21,11 @@ const create = async (req: Request, res: Response) => {
 
 const getById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const order = await OrderService.getById(id);
+  const order = await OrderService.getById(Number(id));
   if (!order) {
     return res.status(404).json({ error: 'Order not found' });
   }
-  return res.status(200).json({ order });
+  return res.status(200).json(order);
 };
 
 export default {

@@ -12,4 +12,10 @@ orderRouter.post(
   OrderController.create,
 );
 
+orderRouter.get(
+  '/:id',
+  validateToken,
+  OrderController.getById,
+);
+
 export default orderRouter;
