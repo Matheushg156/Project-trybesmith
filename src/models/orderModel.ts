@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from './connection';
-import { Order, OrderWithId } from '../interfaces/OrderInterface';
+import { Order, OrderWithId, OrderById } from '../interfaces/OrderInterface';
 
 const create = async (order: Order, userId: number): Promise<OrderWithId> => {
   const query = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
@@ -14,6 +14,20 @@ const create = async (order: Order, userId: number): Promise<OrderWithId> => {
   };
 };
 
+const getById = async (id: string): Promise<OrderById> => {
+  const query = `
+    SELECT Or.id, Or.userId, Pr.id AS products
+    FROM Trybesmith.Orders AS Or 
+    INNER JOIN Trybesmith.Products AS Pr
+    ON Or.id = Pr.orderId
+    WHERE Or.id = ?
+  `;
+  const [data] = await connection.execute(query, [id]);
+  const [result] = data as OrderById[];
+  return result;
+};
+
 export default {
   create,
+  getById,
 };
