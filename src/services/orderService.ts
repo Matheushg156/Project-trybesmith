@@ -1,5 +1,6 @@
 import { Error } from '../interfaces/ErrorsInterface';
-import { Order } from '../interfaces/OrderInterface';
+import { Order, OrderWithId } from '../interfaces/OrderInterface';
+import OrderModel from '../models/orderModel';
 
 const validateOrder = (order: Order): Error | false => {
   if (!order.products) {
@@ -14,6 +15,15 @@ const validateOrder = (order: Order): Error | false => {
   return false;
 };
 
+const getById = async (id: string): Promise<OrderWithId | Error> => {
+  const result = await OrderModel.getById(id);
+  if (!result) {
+    return { code: 404, error: 'Order not found' };
+  }
+  return result;
+};
+
 export default {
   validateOrder,
+  getById,
 };

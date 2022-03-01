@@ -6,6 +6,6 @@ export interface OrderWithId extends Order {
   userId: number,
 }
 
-export interface OrderById extends Order {
+export interface OrderById extends OrderWithId {
   id: number,
 }

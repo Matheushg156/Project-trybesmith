@@ -16,7 +16,7 @@ const create = async (order: Order, userId: number): Promise<OrderWithId> => {
 
 const getById = async (id: string): Promise<OrderById> => {
   const query = `
-    SELECT Or.id, Or.userId, Pr.id AS products
+    SELECT Or.id, Or.userId, Pr.id AS orders
     FROM Trybesmith.Orders AS Or 
     INNER JOIN Trybesmith.Products AS Pr
     ON Or.id = Pr.orderId
