@@ -18,4 +18,10 @@ orderRouter.get(
   OrderController.getById,
 );
 
+orderRouter.get(
+  '/',
+  validateToken,
+  OrderController.getAll,
+);
+
 export default orderRouter;
