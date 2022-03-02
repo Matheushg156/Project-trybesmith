@@ -26,8 +26,9 @@ const getById = async (id: number): Promise<OrderWithId | false> => {
 };
 
 const getAll = async () => {
-  const result = await OrderModel.getAll();
-  return result;
+  const result = await OrderModel.getAll() as ProductOrder[];
+  const orders = OrderHelpers.allOrdersReturn(result);
+  return orders;
 };
 
 export default {

@@ -8,6 +8,18 @@ const ordersReturn = (arr: ProductOrder[], id: number) => {
   return result;
 };
 
+const allOrdersReturn = (arr: ProductOrder[]) => {
+  const result = arr.reduce((acc, { id }) => {
+    if (!acc.some((item) => item.id === id)) {
+      const order = ordersReturn(arr.filter((item) => item.id === id), id);
+      acc.push(order);
+    }
+    return acc;
+  }, [] as OrderById[]);
+  return result;
+};
+
 export default {
   ordersReturn,
+  allOrdersReturn,
 };
