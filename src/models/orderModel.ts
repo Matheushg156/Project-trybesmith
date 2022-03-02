@@ -26,7 +26,19 @@ const getById = async (id: number) => {
   return result;
 };
 
+const getAll = async () => {
+  const query = `
+    SELECT o.id, o.userId, p.id AS products
+    FROM Trybesmith.Orders AS o
+    INNER JOIN Trybesmith.Products AS p
+    ON o.id = p.orderId
+  `;
+  const [result] = await connection.execute<RowDataPacket[]>(query);
+  return result;
+};
+
 export default {
   create,
   getById,
+  getAll,
 };
