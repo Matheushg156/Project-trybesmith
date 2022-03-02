@@ -28,8 +28,14 @@ const getById = async (req: Request, res: Response) => {
   return res.status(200).json(order);
 };
 
+const getAll = async (_req: Request, res: Response) => {
+  const orders = await OrderService.getAll();
+  return res.status(200).json(orders);
+};
+
 export default {
   validateOrder,
   create,
   getById,
+  getAll,
 };
