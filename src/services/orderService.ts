@@ -25,7 +25,13 @@ const getById = async (id: number): Promise<OrderWithId | false> => {
   return order;
 };
 
+const getAll = async () => {
+  const result = await OrderModel.getAll();
+  return result;
+};
+
 export default {
   validateOrder,
   getById,
+  getAll,
 };
